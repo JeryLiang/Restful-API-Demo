@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/jerry?characterEncoding=utf-8&useSSL=false
+
+server:
+  port: 8081
+
+logging:
+  level: info
+
+mybatis:
+  mapper-locations: classpath:mapperXml/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+

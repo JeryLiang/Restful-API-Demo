@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jerry.restful.mapper.UserMapper">
+    <resultMap id="userList" type="com.jerry.restful.domain.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+    </resultMap>
+    <insert id="addUser" parameterType="com.jerry.restful.domain.User">
+        INSERT INTO t_user (account, user_name, password, age)
+        VALUES (#{user.account}, #{user.userName}, #{user.password}, #{user.age})
+    </insert>
+
+    <update id="updateUser">
+        UPDATE t_user
+        SET
+        <if test="user.account != null">
+            account = #{user.account},
+        </if>
+        <if test="user.userName != null">
+            user_name = #{user.userName},
+        </if>
+        <if test="user.password != null">
+            password = #{user.password},
+        </if>
+        <if test="user.age != null">
+            age = #{user.age}
+        </if>
+        WHERE id = id
+
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE
+        FROM t_user
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getAllUser" resultMap="userList">
+        SELECT id, account, user_name, password, age
+        FROM t_user
+    </select>
+
+    <select id="getUser" parameterType="int" resultMap="userList">
+        SELECT id, account, user_name, password, age
+        FROM t_user
+        WHERE id = #{id}
+    </select>
+</mapper>
